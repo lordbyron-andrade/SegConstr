@@ -27,5 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void manejoLogin(View view) {
 
+        Intent i = new Intent(this, TomaFoto.class);
+        startActivity(i);
     }
 }
