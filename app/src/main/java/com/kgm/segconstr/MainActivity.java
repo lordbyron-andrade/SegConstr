@@ -31,20 +31,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Button bLogin, b2;
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        //bLogin = findViewById(R.id.button);
-
-        //b2 = findViewById(R.id.button2);
-
-
-
     }
+
+
+
+
+
 
     public void manejoLogin(View view) {
 
@@ -55,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public void manejoDownload(View view) {
         //Toast m = Toast.makeText(this,"Test",Toast.LENGTH_SHORT);
         //m.show();
-        ManejoDeWS.bajarOrganizaciones();
+        ManejoDeWS.bajarOrganizaciones(this);
 
     }
 }

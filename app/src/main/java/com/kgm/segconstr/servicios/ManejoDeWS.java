@@ -1,9 +1,12 @@
 package com.kgm.segconstr.servicios;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kgm.segconstr.MainActivity;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class ManejoDeWS {
 
     public static List<Organizacion> Orgas;
 
-    public static void bajarOrganizaciones(){
+    public static void bajarOrganizaciones(final Context cx){
 
         Gson gson = new GsonBuilder().create();
         Retrofit r = new Retrofit.Builder()
@@ -34,6 +37,8 @@ public class ManejoDeWS {
             @Override
             public void onResponse(Call<List<Organizacion>> call, Response<List<Organizacion>> response) {
                 Orgas = response.body();
+                Toast.makeText(cx, "Exito", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -41,6 +46,8 @@ public class ManejoDeWS {
                 Log.d("Error",t.getMessage());
             }
         });
+
+
     }
 
 
