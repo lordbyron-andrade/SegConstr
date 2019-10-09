@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kgm.segconstr.servicios.ManejoDeWS;
 import com.kgm.segconstr.servicios.Organizacion;
 import com.kgm.segconstr.servicios.WSOrganizacion;
 
@@ -54,28 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public void manejoDownload(View view) {
         //Toast m = Toast.makeText(this,"Test",Toast.LENGTH_SHORT);
         //m.show();
-
-        Gson gson = new GsonBuilder().create();
-        Retrofit r = new Retrofit.Builder()
-                .baseUrl("http://201.151.105.188:8000/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        WSOrganizacion c = r.create(WSOrganizacion.class);
-
-        Call<List<Organizacion>> call = c.getOrgs();
-
-        call.enqueue(new Callback<List<Organizacion>>() {
-            @Override
-            public void onResponse(Call<List<Organizacion>> call, Response<List<Organizacion>> response) {
-                Orgas = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<Organizacion>> call, Throwable t) {
-                Log.d("Error",t.getMessage());
-            }
-        });
+        ManejoDeWS.bajarOrganizaciones();
 
     }
 }
