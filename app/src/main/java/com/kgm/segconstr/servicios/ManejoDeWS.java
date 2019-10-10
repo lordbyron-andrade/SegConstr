@@ -7,8 +7,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kgm.segconstr.MainActivity;
+import com.kgm.segconstr.ManejoBD.BDDefinicion;
 
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +39,18 @@ public class ManejoDeWS {
             @Override
             public void onResponse(Call<List<Organizacion>> call, Response<List<Organizacion>> response) {
                 Orgas = response.body();
-                Toast.makeText(cx, "Exito", Toast.LENGTH_SHORT).show();
+                String comando_sql;
+                //Toast.makeText(cx, "Exito", Toast.LENGTH_SHORT).show();
+                for(Organizacion Ox : Orgas){
+                    comando_sql = "INSERT INTO " + BDDefinicion.TABLE_ORGS;
+                    comando_sql += " (" + BDDefinicion.COLUMN_ID_ID
+                                 + "," + BDDefinicion.COLUMN_ID_INT + "," + BDDefinicion.COLUMN_ID_LONG
+                                 + "," + BDDefinicion.COLUMN_ID_UUID + "," + BDDefinicion.COLUMN_TEXTO + ")"
+                                 + " VALUES (" + "'" + UUID.randomUUID().toString() + "',"
+                                 + Ox.id_int + "," + Ox.id_long + ",'" + Ox.id_uuid.toString() + "','"
+                                 + Ox.texto + "');";
+                    Toast.makeText(cx, comando_sql, Toast.LENGTH_SHORT).show();
+                }
 
             }
 

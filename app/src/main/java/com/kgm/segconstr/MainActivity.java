@@ -1,6 +1,7 @@
 package com.kgm.segconstr;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kgm.segconstr.ManejoBD.BDDefinicion;
+import com.kgm.segconstr.ManejoBD.ManejoBDLocal;
 import com.kgm.segconstr.servicios.ManejoDeWS;
 import com.kgm.segconstr.servicios.Organizacion;
 import com.kgm.segconstr.servicios.WSOrganizacion;
@@ -40,10 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     public void manejoLogin(View view) {
 
-        Intent i = new Intent(this, TomaFoto.class);
-        startActivity(i);
+        //Intent i = new Intent(this, TomaFoto.class);
+        //startActivity(i);
+        ManejoBDLocal mbdLocal = new ManejoBDLocal(this);
+        mbdLocal.open();
+        Cursor c = mbdLocal.mbdBD.rawQuery("select * from " + BDDefinicion.TABLE_ORGS + ";", null);
+        mbdLocal.close();
+
     }
 
     public void manejoDownload(View view) {
