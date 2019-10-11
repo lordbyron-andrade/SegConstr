@@ -66,6 +66,7 @@ public class ManejoDeWS {
             @Override
             public void onFailure(Call<List<Organizacion>> call, Throwable t) {
                 Log.d("Error",t.getMessage());
+
             }
         });
 
