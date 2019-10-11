@@ -1,6 +1,7 @@
 package com.kgm.segconstr.servicios;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kgm.segconstr.MainActivity;
 import com.kgm.segconstr.ManejoBD.BDDefinicion;
+import com.kgm.segconstr.ManejoBD.ManejoBDLocal;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +43,10 @@ public class ManejoDeWS {
                 Orgas = response.body();
                 String comando_sql;
                 //Toast.makeText(cx, "Exito", Toast.LENGTH_SHORT).show();
+                ManejoBDLocal mbdLocal = new ManejoBDLocal(cx);
+                mbdLocal.open();
+                mbdLocal.mbdBD.execSQL("delete from organizaciones_00");
+
                 for(Organizacion Ox : Orgas){
                     comando_sql = "INSERT INTO " + BDDefinicion.TABLE_ORGS;
                     comando_sql += " (" + BDDefinicion.COLUMN_ID_ID
@@ -49,8 +55,11 @@ public class ManejoDeWS {
                                  + " VALUES (" + "'" + UUID.randomUUID().toString() + "',"
                                  + Ox.id_int + "," + Ox.id_long + ",'" + Ox.id_uuid.toString() + "','"
                                  + Ox.texto + "');";
-                    Toast.makeText(cx, comando_sql, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(cx, comando_sql, Toast.LENGTH_SHORT).show();
+                    mbdLocal.mbdBD.execSQL(comando_sql);
                 }
+
+                mbdLocal.close();
 
             }
 

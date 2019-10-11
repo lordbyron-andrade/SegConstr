@@ -51,7 +51,26 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(i);
         ManejoBDLocal mbdLocal = new ManejoBDLocal(this);
         mbdLocal.open();
-        Cursor c = mbdLocal.mbdBD.rawQuery("select * from " + BDDefinicion.TABLE_ORGS + ";", null);
+        Cursor c = mbdLocal.mbdBD.rawQuery("select * from " + BDDefinicion.TABLE_ORGS + ";",
+
+                                           null);
+        String vl_id_uuid, vl_texto;
+
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                   vl_id_uuid = c.getString(0);
+                   vl_texto = c.getString(3);
+                   Toast.makeText(this,vl_id_uuid.toString()
+                                   + " " + vl_texto.toLowerCase(),Toast.LENGTH_SHORT).show();
+
+
+
+            } while(c.moveToNext());
+        }
+
+
+
         mbdLocal.close();
 
     }
